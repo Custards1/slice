@@ -145,12 +145,12 @@ You must define the following type,
 size_t;
 
 You must define the following functions in order to use this library 
-void *custom_reallocarray(void *__ptr, size_t __nmemb, size_t __size);
+void *custom_realloc(void *__ptr, size_t __nmemb, size_t __size);
 void custom_free(void *__ptr);
 void *custom_calloc(size_t __nmemb, size_t __size)
 You must also
 #define SLICE_UNSAFE_CALLOC_ALLOCATOR custom_calloc
-#define SLICE_UNSAFE_REALLOC_ALLOCATOR reallocarray
+#define SLICE_UNSAFE_REALLOC_ALLOCATOR realloc
 #define SLICE_UNSAFE_FREE_ALLOCATOR free
 */
 #endif
@@ -159,10 +159,10 @@ You must also
 //the calloc function to be used by this library
 #define SLICE_UNSAFE_CALLOC_ALLOCATOR calloc
 #endif
-//the reallocarray function to be used by this library
+//the realloc function to be used by this library
 #ifndef SLICE_UNSAFE_REALLOC_ALLOCATOR
-//the reallocarray function to be used by this library
-#define SLICE_UNSAFE_REALLOC_ALLOCATOR reallocarray
+//the realloc function to be used by this library
+#define SLICE_UNSAFE_REALLOC_ALLOCATOR realloc
 #endif
 //the free function to be used by this library
 #ifndef SLICE_UNSAFE_FREE_ALLOCATOR
@@ -211,7 +211,7 @@ You must also
 //you must use this to allocate the memory,
 //if you free it youself( not using the $name_destroy function)
 //you must call slice_free
-#define slice_realloc(type,data,cap) (type*)SLICE_UNSAFE_REALLOC_ALLOCATOR(data,cap,sizeof(type))
+#define slice_realloc(type,data,cap) (type*)SLICE_UNSAFE_REALLOC_ALLOCATOR(data,cap*sizeof(type))
 #endif
 
 /*
